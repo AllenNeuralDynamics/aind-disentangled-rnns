@@ -42,6 +42,8 @@ if 'google.colab' in sys.modules:
 else:
   _display_available = False
 
+from disentangled_rnns.library.plotting_bottleneck import plot_bottlenecks
+
 
 class DatasetRNN:
   """Holds a dataset for training an RNN, consisting of inputs and targets.
@@ -457,6 +459,7 @@ def train_network(
     report_progress_by: Literal['print', 'log', 'wandb', 'none'] = 'print',
     wandb_run: Optional[Any] = None,
     wandb_step_offset: int = 0,
+    disrnn_config: Optional[Any] = None, # A copy of disrnn_config for plotting bottlenecks
 ) -> tuple[hk.Params, optax.OptState, dict[str, np.ndarray]]:
   """Trains a network.
 
@@ -689,10 +692,15 @@ def train_network(
       )
 
       if report_progress_by == 'wandb' and wandb_run is not None:
+        # Log losses
         wandb_run.log(
             {"train/loss": loss, "valid/loss": l_validation},
             step=step + wandb_step_offset,
         )
+        # Also log bottleneck plot
+        fig = plot_bottlenecks(params, disrnn_config, sort_latents=True)
+        wandb_run.log({"bottlenecks": fig}, step=step + wandb_step_offset)
+
 
       if report_progress_by == 'print' or report_progress_by == 'wandb':
         # On colab, print does not always work, so try to use display
