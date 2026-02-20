@@ -789,7 +789,7 @@ def plot_choice_rule(
         )
         ax.tick_params(axis="both", labelsize=small)
         output['yhats'] = y_hats
-        output['policy_latent_{}_vals'.format(policy_latent_idx1_in_latent_space + 1)] = latent_vals
-        output['policy_latent_{}_vals'.format(policy_latent_idx2_in_latent_space + 1)] = latent_vals
+        output['policy_latent_{}_vals'.format(policy_latent_idx1_in_latent_space + 1)] = latent0_vals
+        output['policy_latent_{}_vals'.format(policy_latent_idx2_in_latent_space + 1)] = latent1_vals
 
     return (output, fig)
