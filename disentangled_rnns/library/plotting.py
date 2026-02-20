@@ -734,7 +734,7 @@ def plot_choice_rule(
         ax.tick_params(axis="both", labelsize=small)
         output['policy_latent_vals'] = policy_latent_vals
         output['choice_logits'] = choice_logits
-        output['yhats'] = yhats
+        output['yhats'] = y_hats
     else:
         # Choice Rule 2D: A colormap
         if len(influential_latents_indices_in_latent_space) > 2:
