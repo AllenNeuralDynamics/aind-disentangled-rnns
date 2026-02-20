@@ -616,7 +616,7 @@ def plot_choice_rule(
     disrnn_config: disrnn.DisRnnConfig,
     subj_embedding: np.ndarray | None = None,
     axis_lim: float = 2.1,
-) -> tuple(dict,plt.Figure | None):
+) -> tuple[dict,plt.Figure | None]:
     """Plots the choice rule of a DisRNN.
 
     Args:
