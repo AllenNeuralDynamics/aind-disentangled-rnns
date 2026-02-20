@@ -616,7 +616,7 @@ def plot_choice_rule(
     disrnn_config: disrnn.DisRnnConfig,
     subj_embedding: np.ndarray | None = None,
     axis_lim: float = 2.1,
-) -> plt.Figure | None:
+) -> tuple(dict,plt.Figure | None):
     """Plots the choice rule of a DisRNN.
 
     Args:
@@ -704,6 +704,7 @@ def plot_choice_rule(
         :n_latents_to_plot
     ]
 
+    output = {}
     if n_latents_to_plot == 1:
         # Choice Rule 1D: A curve
         policy_latent_idx_in_latent_space = varying_latents_plot_indices[0]
@@ -731,7 +732,9 @@ def plot_choice_rule(
         )
         ax.set_ylabel("Choice Logit", fontsize=medium)
         ax.tick_params(axis="both", labelsize=small)
-
+        output['policy_latent_vals'] = policy_latent_vals
+        output['choice_logits'] = choice_logits
+        output['yhats'] = yhats
     else:
         # Choice Rule 2D: A colormap
         if len(influential_latents_indices_in_latent_space) > 2:
@@ -786,4 +789,4 @@ def plot_choice_rule(
         )
         ax.tick_params(axis="both", labelsize=small)
 
-    return fig
+    return (output, fig)
