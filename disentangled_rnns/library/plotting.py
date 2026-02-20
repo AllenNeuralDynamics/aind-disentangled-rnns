@@ -732,7 +732,7 @@ def plot_choice_rule(
         )
         ax.set_ylabel("Choice Logit", fontsize=medium)
         ax.tick_params(axis="both", labelsize=small)
-        output['policy_latent_vals'] = policy_latent_vals
+        output['policy_latent_{}_vals'.format(policy_latent_idx_in_latent_space + 1)] = policy_latent_vals
         output['choice_logits'] = choice_logits
         output['yhats'] = y_hats
     else:
@@ -788,5 +788,8 @@ def plot_choice_rule(
             f"Latent {policy_latent_idx2_in_latent_space + 1}", fontsize=medium
         )
         ax.tick_params(axis="both", labelsize=small)
+        output['yhats'] = y_hats
+        output['policy_latent_{}_vals'.format(policy_latent_idx1_in_latent_space + 1)] = policy_latent_vals
+        output['policy_latent_{}_vals'.format(policy_latent_idx2_in_latent_space + 1)] = policy_latent_vals
 
     return (output, fig)
